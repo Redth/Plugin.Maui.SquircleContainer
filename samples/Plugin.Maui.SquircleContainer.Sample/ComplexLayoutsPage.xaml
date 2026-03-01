@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:squircle="clr-namespace:Plugin.Maui.SquircleContainer;assembly=Plugin.Maui.SquircleContainer"
+             x:Class="Plugin.Maui.SquircleContainer.Sample.ComplexLayoutsPage"
+             Title="Complex Layouts">
+    <ScrollView>
+        <VerticalStackLayout Spacing="24" Padding="20">
+
+            <Label Text="Complex Content Layouts"
+                   FontSize="24" FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <!-- Card with VerticalStackLayout -->
+            <Label Text="VerticalStackLayout (Card)" FontSize="12" TextColor="Gray" />
+            <squircle:SquircleContainer CornerRadius="20"
+                                        CornerSmoothing="0.6"
+                                        Padding="20"
+                                        HorizontalOptions="Fill">
+                <squircle:SquircleContainer.Fill>
+                    <SolidColorBrush Color="#1E1B4B" />
+                </squircle:SquircleContainer.Fill>
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="🚀 Project Update"
+                           FontSize="20" FontAttributes="Bold" TextColor="White" />
+                    <Label Text="Sprint 14 is on track. We shipped the new squircle container control with full macOS support."
+                           FontSize="14" TextColor="#C7D2FE" />
+                    <BoxView HeightRequest="1" Color="#4338CA" Margin="0,4" />
+                    <HorizontalStackLayout Spacing="12">
+                        <Label Text="3 tasks remaining" FontSize="12" TextColor="#A5B4FC" />
+                        <Label Text="•" FontSize="12" TextColor="#6366F1" />
+                        <Label Text="Due Mar 15" FontSize="12" TextColor="#A5B4FC" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </squircle:SquircleContainer>
+
+            <!-- HorizontalStackLayout (Chips) -->
+            <Label Text="HorizontalStackLayout (Tags)" FontSize="12" TextColor="Gray" />
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                <squircle:SquircleContainer CornerRadius="16" CornerSmoothing="0.6" Padding="12,8">
+                    <squircle:SquircleContainer.Fill>
+                        <SolidColorBrush Color="#DBEAFE" />
+                    </squircle:SquircleContainer.Fill>
+                    <Label Text=".NET MAUI" FontSize="13" TextColor="#1E40AF" />
+                </squircle:SquircleContainer>
+                <squircle:SquircleContainer CornerRadius="16" CornerSmoothing="0.6" Padding="12,8">
+                    <squircle:SquircleContainer.Fill>
+                        <SolidColorBrush Color="#D1FAE5" />
+                    </squircle:SquircleContainer.Fill>
+                    <Label Text="macOS" FontSize="13" TextColor="#065F46" />
+                </squircle:SquircleContainer>
+                <squircle:SquircleContainer CornerRadius="16" CornerSmoothing="0.6" Padding="12,8">
+                    <squircle:SquircleContainer.Fill>
+                        <SolidColorBrush Color="#FEF3C7" />
+                    </squircle:SquircleContainer.Fill>
+                    <Label Text="Squircle" FontSize="13" TextColor="#92400E" />
+                </squircle:SquircleContainer>
+                <squircle:SquircleContainer CornerRadius="16" CornerSmoothing="0.6" Padding="12,8">
+                    <squircle:SquircleContainer.Fill>
+                        <SolidColorBrush Color="#FCE7F3" />
+                    </squircle:SquircleContainer.Fill>
+                    <Label Text="iOS" FontSize="13" TextColor="#9D174D" />
+                </squircle:SquircleContainer>
+            </HorizontalStackLayout>
+
+            <!-- Grid layout inside squircle -->
+            <Label Text="Grid Layout (Dashboard Card)" FontSize="12" TextColor="Gray" />
+            <squircle:SquircleContainer CornerRadius="24"
+                                        CornerSmoothing="0.6"
+                                        Padding="20"
+                                        HorizontalOptions="Fill">
+                <squircle:SquircleContainer.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#7C3AED" Offset="0" />
+                        <GradientStop Color="#2563EB" Offset="1" />
+                    </LinearGradientBrush>
+                </squircle:SquircleContainer.Fill>
+                <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*" RowSpacing="16" ColumnSpacing="16">
+                    <Label Grid.ColumnSpan="2"
+                           Text="Dashboard" FontSize="18" FontAttributes="Bold" TextColor="White" />
+
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                        <Label Text="Downloads" FontSize="11" TextColor="#C4B5FD" />
+                        <Label Text="12,847" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                        <Label Text="Active Users" FontSize="11" TextColor="#C4B5FD" />
+                        <Label Text="3,291" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="2" Grid.Column="0">
+                        <Label Text="Rating" FontSize="11" TextColor="#C4B5FD" />
+                        <Label Text="⭐ 4.8" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="2" Grid.Column="1">
+                        <Label Text="Issues" FontSize="11" TextColor="#C4B5FD" />
+                        <Label Text="7 open" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                    </VerticalStackLayout>
+                </Grid>
+            </squircle:SquircleContainer>
+
+            <!-- Nested squircles -->
+            <Label Text="Nested Squircles" FontSize="12" TextColor="Gray" />
+            <squircle:SquircleContainer CornerRadius="28"
+                                        CornerSmoothing="0.6"
+                                        Padding="16"
+                                        HorizontalOptions="Fill">
+                <squircle:SquircleContainer.Fill>
+                    <SolidColorBrush Color="#F1F5F9" />
+                </squircle:SquircleContainer.Fill>
+                <VerticalStackLayout Spacing="12">
+                    <squircle:SquircleContainer CornerRadius="16" CornerSmoothing="0.6" Padding="16">
+                        <squircle:SquircleContainer.Fill>
+                            <SolidColorBrush Color="White" />
+                        </squircle:SquircleContainer.Fill>
+                        <squircle:SquircleContainer.Stroke>
+                            <SolidColorBrush Color="#E2E8F0" />
+                        </squircle:SquircleContainer.Stroke>
+                        <squircle:SquircleContainer.StrokeThickness>1</squircle:SquircleContainer.StrokeThickness>
+                        <HorizontalStackLayout Spacing="12">
+                            <squircle:SquircleContainer CornerRadius="12" CornerSmoothing="0.6"
+                                                        HeightRequest="44" WidthRequest="44">
+                                <squircle:SquircleContainer.Fill>
+                                    <SolidColorBrush Color="#6366F1" />
+                                </squircle:SquircleContainer.Fill>
+                                <Label Text="JD" TextColor="White" FontSize="14" FontAttributes="Bold"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </squircle:SquircleContainer>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Jane Doe" FontSize="15" FontAttributes="Bold" TextColor="#1E293B" />
+                                <Label Text="Senior Developer" FontSize="12" TextColor="#64748B" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </squircle:SquircleContainer>
+
+                    <squircle:SquircleContainer CornerRadius="16" CornerSmoothing="0.6" Padding="16">
+                        <squircle:SquircleContainer.Fill>
+                            <SolidColorBrush Color="White" />
+                        </squircle:SquircleContainer.Fill>
+                        <squircle:SquircleContainer.Stroke>
+                            <SolidColorBrush Color="#E2E8F0" />
+                        </squircle:SquircleContainer.Stroke>
+                        <squircle:SquircleContainer.StrokeThickness>1</squircle:SquircleContainer.StrokeThickness>
+                        <HorizontalStackLayout Spacing="12">
+                            <squircle:SquircleContainer CornerRadius="12" CornerSmoothing="0.6"
+                                                        HeightRequest="44" WidthRequest="44">
+                                <squircle:SquircleContainer.Fill>
+                                    <SolidColorBrush Color="#10B981" />
+                                </squircle:SquircleContainer.Fill>
+                                <Label Text="AS" TextColor="White" FontSize="14" FontAttributes="Bold"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </squircle:SquircleContainer>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="Alex Smith" FontSize="15" FontAttributes="Bold" TextColor="#1E293B" />
+                                <Label Text="Designer" FontSize="12" TextColor="#64748B" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </squircle:SquircleContainer>
+                </VerticalStackLayout>
+            </squircle:SquircleContainer>
+
+            <!-- Image-like content (BoxView placeholder) with padding variations -->
+            <Label Text="Padding Variations" FontSize="12" TextColor="Gray" />
+            <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <squircle:SquircleContainer CornerRadius="20" CornerSmoothing="0.6"
+                                                Padding="0"
+                                                HeightRequest="100" WidthRequest="100">
+                        <squircle:SquircleContainer.Fill>
+                            <SolidColorBrush Color="#EF4444" />
+                        </squircle:SquircleContainer.Fill>
+                        <Label Text="P=0" TextColor="White" FontSize="14"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                    </squircle:SquircleContainer>
+                    <Label Text="Pad 0" FontSize="10" HorizontalTextAlignment="Center" TextColor="Gray" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <squircle:SquircleContainer CornerRadius="20" CornerSmoothing="0.6"
+                                                Padding="10"
+                                                HeightRequest="100" WidthRequest="100">
+                        <squircle:SquircleContainer.Fill>
+                            <SolidColorBrush Color="#F59E0B" />
+                        </squircle:SquircleContainer.Fill>
+                        <Label Text="P=10" TextColor="White" FontSize="14"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                    </squircle:SquircleContainer>
+                    <Label Text="Pad 10" FontSize="10" HorizontalTextAlignment="Center" TextColor="Gray" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <squircle:SquircleContainer CornerRadius="20" CornerSmoothing="0.6"
+                                                Padding="20"
+                                                HeightRequest="100" WidthRequest="100">
+                        <squircle:SquircleContainer.Fill>
+                            <SolidColorBrush Color="#10B981" />
+                        </squircle:SquircleContainer.Fill>
+                        <Label Text="P=20" TextColor="White" FontSize="14"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                    </squircle:SquircleContainer>
+                    <Label Text="Pad 20" FontSize="10" HorizontalTextAlignment="Center" TextColor="Gray" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+            <!-- FlexLayout inside squircle -->
+            <Label Text="FlexLayout (Wrapping Tags)" FontSize="12" TextColor="Gray" />
+            <squircle:SquircleContainer CornerRadius="20" CornerSmoothing="0.6"
+                                        Padding="16"
+                                        HorizontalOptions="Fill">
+                <squircle:SquircleContainer.Fill>
+                    <SolidColorBrush Color="#0F172A" />
+                </squircle:SquircleContainer.Fill>
+                <FlexLayout Wrap="Wrap" Direction="Row"
+                            JustifyContent="Start" AlignContent="Start">
+                    <Label Text="C#" TextColor="#A5F3FC" FontSize="13" Margin="0,0,12,8" />
+                    <Label Text="XAML" TextColor="#FDE68A" FontSize="13" Margin="0,0,12,8" />
+                    <Label Text=".NET 10" TextColor="#BBF7D0" FontSize="13" Margin="0,0,12,8" />
+                    <Label Text="MAUI" TextColor="#E9D5FF" FontSize="13" Margin="0,0,12,8" />
+                    <Label Text="Squircle" TextColor="#FECDD3" FontSize="13" Margin="0,0,12,8" />
+                    <Label Text="iOS" TextColor="#BFDBFE" FontSize="13" Margin="0,0,12,8" />
+                    <Label Text="Android" TextColor="#BBF7D0" FontSize="13" Margin="0,0,12,8" />
+                    <Label Text="macOS" TextColor="#FED7AA" FontSize="13" Margin="0,0,12,8" />
+                    <Label Text="Catalyst" TextColor="#C4B5FD" FontSize="13" Margin="0,0,12,8" />
+                    <Label Text="Graphics" TextColor="#FBCFE8" FontSize="13" Margin="0,0,12,8" />
+                </FlexLayout>
+            </squircle:SquircleContainer>
+
+            <!-- Asymmetric corners -->
+            <Label Text="Asymmetric Corner Radii" FontSize="12" TextColor="Gray" />
+            <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                <squircle:SquircleContainer CornerRadius="30,0,30,0" CornerSmoothing="0.6"
+                                            HeightRequest="100" WidthRequest="140" Padding="12">
+                    <squircle:SquircleContainer.Fill>
+                        <SolidColorBrush Color="#7C3AED" />
+                    </squircle:SquircleContainer.Fill>
+                    <Label Text="30,0,30,0" TextColor="White" FontSize="12"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                </squircle:SquircleContainer>
+
+                <squircle:SquircleContainer CornerRadius="0,30,0,30" CornerSmoothing="0.6"
+                                            HeightRequest="100" WidthRequest="140" Padding="12">
+                    <squircle:SquircleContainer.Fill>
+                        <SolidColorBrush Color="#DB2777" />
+                    </squircle:SquircleContainer.Fill>
+                    <Label Text="0,30,0,30" TextColor="White" FontSize="12"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                </squircle:SquircleContainer>
+            </HorizontalStackLayout>
+
+            <!-- Message bubble style -->
+            <Label Text="Chat Bubble Style" FontSize="12" TextColor="Gray" />
+            <VerticalStackLayout Spacing="8" Padding="0,0,40,0">
+                <squircle:SquircleContainer CornerRadius="18,18,18,4" CornerSmoothing="0.6"
+                                            Padding="14,10" HorizontalOptions="Start">
+                    <squircle:SquircleContainer.Fill>
+                        <SolidColorBrush Color="#E2E8F0" />
+                    </squircle:SquircleContainer.Fill>
+                    <Label Text="Hey, have you seen the new squircle control?" FontSize="14" TextColor="#1E293B" />
+                </squircle:SquircleContainer>
+
+                <squircle:SquircleContainer CornerRadius="18,18,4,18" CornerSmoothing="0.6"
+                                            Padding="14,10" HorizontalOptions="End" Margin="40,0,0,0">
+                    <squircle:SquircleContainer.Fill>
+                        <SolidColorBrush Color="#6366F1" />
+                    </squircle:SquircleContainer.Fill>
+                    <Label Text="Yes! It looks amazing 🎉" FontSize="14" TextColor="White" />
+                </squircle:SquircleContainer>
+
+                <squircle:SquircleContainer CornerRadius="18,18,18,4" CornerSmoothing="0.6"
+                                            Padding="14,10" HorizontalOptions="Start">
+                    <squircle:SquircleContainer.Fill>
+                        <SolidColorBrush Color="#E2E8F0" />
+                    </squircle:SquircleContainer.Fill>
+                    <Label Text="Works on macOS too!" FontSize="14" TextColor="#1E293B" />
+                </squircle:SquircleContainer>
+            </VerticalStackLayout>
+
+            <BoxView HeightRequest="20" Color="Transparent" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

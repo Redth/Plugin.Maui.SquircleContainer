@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:squircle="clr-namespace:Plugin.Maui.SquircleContainer;assembly=Plugin.Maui.SquircleContainer"
+             x:Class="Plugin.Maui.SquircleContainer.Sample.PlaygroundPage"
+             Title="Playground">
+    <Grid RowDefinitions="*,Auto" Padding="20">
+
+        <!-- Preview area -->
+        <Grid VerticalOptions="Center" HorizontalOptions="Center">
+            <squircle:SquircleContainer x:Name="PreviewContainer"
+                                        CornerRadius="30"
+                                        CornerSmoothing="0.6"
+                                        StrokeThickness="0"
+                                        HeightRequest="200"
+                                        WidthRequest="300"
+                                        Padding="20"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center">
+                <squircle:SquircleContainer.Fill>
+                    <SolidColorBrush Color="#6366F1" />
+                </squircle:SquircleContainer.Fill>
+                <Label x:Name="PreviewLabel"
+                       Text="Adjust the sliders below"
+                       TextColor="White"
+                       FontSize="16"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </squircle:SquircleContainer>
+        </Grid>
+
+        <!-- Controls panel -->
+        <ScrollView Grid.Row="1" MaximumHeightRequest="360">
+            <VerticalStackLayout Spacing="8" Padding="0,10,0,0">
+
+                <!-- Corner Radius -->
+                <Grid ColumnDefinitions="120,*,50">
+                    <Label Text="Corner Radius" VerticalOptions="Center" />
+                    <Slider x:Name="RadiusSlider" Grid.Column="1"
+                            Minimum="0" Maximum="100" Value="30"
+                            ValueChanged="OnRadiusChanged" />
+                    <Label x:Name="RadiusLabel" Grid.Column="2"
+                           Text="30" VerticalOptions="Center" HorizontalTextAlignment="End" />
+                </Grid>
+
+                <!-- Smoothing -->
+                <Grid ColumnDefinitions="120,*,50">
+                    <Label Text="Smoothing" VerticalOptions="Center" />
+                    <Slider x:Name="SmoothingSlider" Grid.Column="1"
+                            Minimum="0" Maximum="1" Value="0.6"
+                            ValueChanged="OnSmoothingChanged" />
+                    <Label x:Name="SmoothingLabel" Grid.Column="2"
+                           Text="0.60" VerticalOptions="Center" HorizontalTextAlignment="End" />
+                </Grid>
+
+                <!-- Padding -->
+                <Grid ColumnDefinitions="120,*,50">
+                    <Label Text="Padding" VerticalOptions="Center" />
+                    <Slider x:Name="PaddingSlider" Grid.Column="1"
+                            Minimum="0" Maximum="40" Value="20"
+                            ValueChanged="OnPaddingChanged" />
+                    <Label x:Name="PaddingLabel" Grid.Column="2"
+                           Text="20" VerticalOptions="Center" HorizontalTextAlignment="End" />
+                </Grid>
+
+                <!-- Margin -->
+                <Grid ColumnDefinitions="120,*,50">
+                    <Label Text="Margin" VerticalOptions="Center" />
+                    <Slider x:Name="MarginSlider" Grid.Column="1"
+                            Minimum="0" Maximum="40" Value="0"
+                            ValueChanged="OnMarginChanged" />
+                    <Label x:Name="MarginLabel" Grid.Column="2"
+                           Text="0" VerticalOptions="Center" HorizontalTextAlignment="End" />
+                </Grid>
+
+                <!-- Stroke Thickness -->
+                <Grid ColumnDefinitions="120,*,50">
+                    <Label Text="Stroke" VerticalOptions="Center" />
+                    <Slider x:Name="StrokeSlider" Grid.Column="1"
+                            Minimum="0" Maximum="10" Value="0"
+                            ValueChanged="OnStrokeChanged" />
+                    <Label x:Name="StrokeLabel" Grid.Column="2"
+                           Text="0" VerticalOptions="Center" HorizontalTextAlignment="End" />
+                </Grid>
+
+                <!-- Width -->
+                <Grid ColumnDefinitions="120,*,50">
+                    <Label Text="Width" VerticalOptions="Center" />
+                    <Slider x:Name="WidthSlider" Grid.Column="1"
+                            Minimum="100" Maximum="380" Value="300"
+                            ValueChanged="OnWidthChanged" />
+                    <Label x:Name="WidthLabel" Grid.Column="2"
+                           Text="300" VerticalOptions="Center" HorizontalTextAlignment="End" />
+                </Grid>
+
+                <!-- Height -->
+                <Grid ColumnDefinitions="120,*,50">
+                    <Label Text="Height" VerticalOptions="Center" />
+                    <Slider x:Name="HeightSlider" Grid.Column="1"
+                            Minimum="80" Maximum="300" Value="200"
+                            ValueChanged="OnHeightChanged" />
+                    <Label x:Name="HeightLabel" Grid.Column="2"
+                           Text="200" VerticalOptions="Center" HorizontalTextAlignment="End" />
+                </Grid>
+
+                <!-- Fill Color -->
+                <Grid ColumnDefinitions="120,*" ColumnSpacing="10">
+                    <Label Text="Fill Color" VerticalOptions="Center" />
+                    <HorizontalStackLayout Grid.Column="1" Spacing="8">
+                        <Button Text="Indigo" BackgroundColor="#6366F1" TextColor="White"
+                                Clicked="OnFillColorClicked" ClassId="#6366F1" WidthRequest="70" HeightRequest="36" Padding="0" />
+                        <Button Text="Red" BackgroundColor="#EF4444" TextColor="White"
+                                Clicked="OnFillColorClicked" ClassId="#EF4444" WidthRequest="70" HeightRequest="36" Padding="0" />
+                        <Button Text="Green" BackgroundColor="#10B981" TextColor="White"
+                                Clicked="OnFillColorClicked" ClassId="#10B981" WidthRequest="70" HeightRequest="36" Padding="0" />
+                        <Button Text="Blue" BackgroundColor="#3B82F6" TextColor="White"
+                                Clicked="OnFillColorClicked" ClassId="#3B82F6" WidthRequest="70" HeightRequest="36" Padding="0" />
+                    </HorizontalStackLayout>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
