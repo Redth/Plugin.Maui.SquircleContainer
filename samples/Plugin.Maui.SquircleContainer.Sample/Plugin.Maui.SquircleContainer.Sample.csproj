@@ -19,6 +19,10 @@
     <ApplicationTitle>Squircle Sample</ApplicationTitle>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos'">
+    <DefineConstants>$(DefineConstants);MACOS</DefineConstants>
+  </PropertyGroup>
+
   <!-- macOS app head files (outside Platforms/ to avoid MAUI SingleProject exclusion) -->
   <ItemGroup>
     <Compile Remove="AppHost\macOS\**\*.cs" />

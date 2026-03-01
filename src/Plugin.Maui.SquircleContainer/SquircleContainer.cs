@@ -8,12 +8,16 @@ namespace Plugin.Maui.SquircleContainer;
 /// Similar to MAUI's Border control but with smooth superellipse corners instead of circular arcs.
 /// </summary>
 [ContentProperty(nameof(Content))]
-public class SquircleContainer : ContentView
+public class SquircleContainer : Grid
 {
-    private GraphicsView? _graphicsView;
-    private SquircleDrawable? _drawable;
+    private readonly GraphicsView _graphicsView;
+    private readonly SquircleDrawable _drawable;
 
     #region Bindable Properties
+
+    public static readonly BindableProperty ContentProperty = BindableProperty.Create(
+        nameof(Content), typeof(View), typeof(SquircleContainer),
+        null, propertyChanged: OnContentChanged);
 
     public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(
         nameof(CornerRadius), typeof(CornerRadius), typeof(SquircleContainer),
@@ -46,6 +50,15 @@ public class SquircleContainer : ContentView
     #endregion
 
     #region Properties
+
+    /// <summary>
+    /// The child content to display inside the squircle container.
+    /// </summary>
+    public View? Content
+    {
+        get => (View?)GetValue(ContentProperty);
+        set => SetValue(ContentProperty, value);
+    }
 
     /// <summary>
     /// The corner radius for the squircle shape. Supports per-corner values.
@@ -117,28 +130,31 @@ public class SquircleContainer : ContentView
     public SquircleContainer()
     {
         _drawable = new SquircleDrawable(this);
-
-        // Use a ControlTemplate so the GraphicsView sits behind user Content
-        ControlTemplate = new ControlTemplate(() =>
+        _graphicsView = new GraphicsView
         {
-            var grid = new Grid();
-
-            _graphicsView = new GraphicsView
-            {
-                Drawable = _drawable,
-                InputTransparent = true,
-            };
-            grid.Children.Add(_graphicsView);
-            grid.Children.Add(new ContentPresenter());
-
-            return grid;
-        });
+            Drawable = _drawable,
+            InputTransparent = true,
+        };
+        // GraphicsView is the background layer (index 0)
+        Children.Add(_graphicsView);
     }
 
     protected override void OnSizeAllocated(double width, double height)
     {
         base.OnSizeAllocated(width, height);
         UpdateClipAndInvalidate();
+    }
+
+    private static void OnContentChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is SquircleContainer container)
+        {
+            if (oldValue is View oldView)
+                container.Children.Remove(oldView);
+
+            if (newValue is View newView)
+                container.Children.Add(newView);
+        }
     }
 
     private static void OnVisualPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -161,6 +177,6 @@ public class SquircleContainer : ContentView
         Clip = PathGeometryConverter.ToGeometry(path);
 
         // Invalidate the graphics view to redraw
-        _graphicsView?.Invalidate();
+        _graphicsView.Invalidate();
     }
 }
