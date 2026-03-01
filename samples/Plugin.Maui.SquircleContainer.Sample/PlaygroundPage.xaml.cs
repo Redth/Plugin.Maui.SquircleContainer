@@ -61,4 +61,17 @@ public partial class PlaygroundPage : ContentPage
         if (sender is Button btn)
             PreviewContainer.Fill = new SolidColorBrush(Color.FromArgb(btn.ClassId));
     }
+
+    void OnStrokeColorClicked(object? sender, EventArgs e)
+    {
+        if (sender is Button btn)
+        {
+            PreviewContainer.Stroke = new SolidColorBrush(Color.FromArgb(btn.ClassId));
+            if (PreviewContainer.StrokeThickness < 1)
+            {
+                PreviewContainer.StrokeThickness = 3;
+                StrokeSlider.Value = 3;
+            }
+        }
+    }
 }

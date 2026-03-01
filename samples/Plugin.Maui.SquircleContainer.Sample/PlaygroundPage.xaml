@@ -118,6 +118,21 @@
                     </HorizontalStackLayout>
                 </Grid>
 
+                <!-- Stroke Color -->
+                <Grid ColumnDefinitions="120,*" ColumnSpacing="10">
+                    <Label Text="Stroke Color" VerticalOptions="Center" />
+                    <HorizontalStackLayout Grid.Column="1" Spacing="8">
+                        <Button Text="White" BackgroundColor="White" TextColor="Black" BorderColor="#ccc" BorderWidth="1"
+                                Clicked="OnStrokeColorClicked" ClassId="#FFFFFF" WidthRequest="70" HeightRequest="36" Padding="0" />
+                        <Button Text="Black" BackgroundColor="Black" TextColor="White"
+                                Clicked="OnStrokeColorClicked" ClassId="#000000" WidthRequest="70" HeightRequest="36" Padding="0" />
+                        <Button Text="Red" BackgroundColor="#EF4444" TextColor="White"
+                                Clicked="OnStrokeColorClicked" ClassId="#EF4444" WidthRequest="70" HeightRequest="36" Padding="0" />
+                        <Button Text="Gold" BackgroundColor="#F59E0B" TextColor="White"
+                                Clicked="OnStrokeColorClicked" ClassId="#F59E0B" WidthRequest="70" HeightRequest="36" Padding="0" />
+                    </HorizontalStackLayout>
+                </Grid>
+
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
