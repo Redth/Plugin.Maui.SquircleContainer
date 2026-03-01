@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:squircle="clr-namespace:Plugin.Maui.SquircleContainer;assembly=Plugin.Maui.SquircleContainer"
+             x:Class="Plugin.Maui.SquircleContainer.Sample.MainPage"
+             Title="Squircle Container">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+
+            <Label Text="Squircle Container Demos"
+                   FontSize="24" FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <!-- Basic solid fill -->
+            <Label Text="Solid Fill (CornerRadius=30, Smoothing=0.6)" FontSize="12" />
+            <squircle:SquircleContainer CornerRadius="30"
+                                        CornerSmoothing="0.6"
+                                        HeightRequest="120"
+                                        WidthRequest="280"
+                                        HorizontalOptions="Center">
+                <squircle:SquircleContainer.Fill>
+                    <SolidColorBrush Color="#6366F1" />
+                </squircle:SquircleContainer.Fill>
+                <Label Text="Hello Squircle!"
+                       TextColor="White"
+                       FontSize="20"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </squircle:SquircleContainer>
+
+            <!-- Standard rounded for comparison -->
+            <Label Text="Standard Round (Smoothing=0)" FontSize="12" />
+            <squircle:SquircleContainer CornerRadius="30"
+                                        CornerSmoothing="0"
+                                        HeightRequest="120"
+                                        WidthRequest="280"
+                                        HorizontalOptions="Center">
+                <squircle:SquircleContainer.Fill>
+                    <SolidColorBrush Color="#EF4444" />
+                </squircle:SquircleContainer.Fill>
+                <Label Text="Standard Round"
+                       TextColor="White"
+                       FontSize="20"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </squircle:SquircleContainer>
+
+            <!-- Full squircle -->
+            <Label Text="Full Squircle (Smoothing=1.0)" FontSize="12" />
+            <squircle:SquircleContainer CornerRadius="30"
+                                        CornerSmoothing="1.0"
+                                        HeightRequest="120"
+                                        WidthRequest="280"
+                                        HorizontalOptions="Center">
+                <squircle:SquircleContainer.Fill>
+                    <SolidColorBrush Color="#10B981" />
+                </squircle:SquircleContainer.Fill>
+                <Label Text="Full Squircle"
+                       TextColor="White"
+                       FontSize="20"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </squircle:SquircleContainer>
+
+            <!-- Gradient fill -->
+            <Label Text="Linear Gradient Fill" FontSize="12" />
+            <squircle:SquircleContainer CornerRadius="40"
+                                        CornerSmoothing="0.6"
+                                        HeightRequest="150"
+                                        WidthRequest="300"
+                                        HorizontalOptions="Center">
+                <squircle:SquircleContainer.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#8B5CF6" Offset="0" />
+                        <GradientStop Color="#EC4899" Offset="1" />
+                    </LinearGradientBrush>
+                </squircle:SquircleContainer.Fill>
+                <Label Text="Gradient"
+                       TextColor="White"
+                       FontSize="24" FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </squircle:SquircleContainer>
+
+            <!-- Stroke border -->
+            <Label Text="Stroke Border (Thickness=3)" FontSize="12" />
+            <squircle:SquircleContainer CornerRadius="24"
+                                        CornerSmoothing="0.6"
+                                        StrokeThickness="3"
+                                        HeightRequest="120"
+                                        WidthRequest="280"
+                                        HorizontalOptions="Center">
+                <squircle:SquircleContainer.Fill>
+                    <SolidColorBrush Color="#FEF3C7" />
+                </squircle:SquircleContainer.Fill>
+                <squircle:SquircleContainer.Stroke>
+                    <SolidColorBrush Color="#F59E0B" />
+                </squircle:SquircleContainer.Stroke>
+                <Label Text="With Border"
+                       TextColor="#92400E"
+                       FontSize="20"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </squircle:SquircleContainer>
+
+            <!-- Dashed stroke -->
+            <Label Text="Dashed Stroke" FontSize="12" />
+            <squircle:SquircleContainer CornerRadius="20"
+                                        CornerSmoothing="0.6"
+                                        StrokeThickness="2"
+                                        StrokeDashPattern="8,4"
+                                        HeightRequest="120"
+                                        WidthRequest="280"
+                                        HorizontalOptions="Center">
+                <squircle:SquircleContainer.Stroke>
+                    <SolidColorBrush Color="#6366F1" />
+                </squircle:SquircleContainer.Stroke>
+                <Label Text="Dashed Border"
+                       TextColor="#6366F1"
+                       FontSize="20"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </squircle:SquircleContainer>
+
+            <!-- Large radius (near circular) -->
+            <Label Text="Large Radius (Square → Circle-ish)" FontSize="12" />
+            <squircle:SquircleContainer CornerRadius="75"
+                                        CornerSmoothing="0.6"
+                                        HeightRequest="150"
+                                        WidthRequest="150"
+                                        HorizontalOptions="Center">
+                <squircle:SquircleContainer.Fill>
+                    <SolidColorBrush Color="#3B82F6" />
+                </squircle:SquircleContainer.Fill>
+                <Label Text="App"
+                       TextColor="White"
+                       FontSize="28" FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </squircle:SquircleContainer>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
