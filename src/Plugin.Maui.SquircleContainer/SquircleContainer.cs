@@ -15,6 +15,13 @@ public class SquircleContainer : Grid
 
     #region Bindable Properties
 
+    /// <summary>
+    /// Shadows Grid.Padding so that padding only applies to content, not the background GraphicsView.
+    /// </summary>
+    public static new readonly BindableProperty PaddingProperty = BindableProperty.Create(
+        nameof(Padding), typeof(Thickness), typeof(SquircleContainer),
+        new Thickness(0), propertyChanged: OnPaddingPropertyChanged);
+
     public static readonly BindableProperty ContentProperty = BindableProperty.Create(
         nameof(Content), typeof(View), typeof(SquircleContainer),
         null, propertyChanged: OnContentChanged);
@@ -58,6 +65,16 @@ public class SquircleContainer : Grid
     {
         get => (View?)GetValue(ContentProperty);
         set => SetValue(ContentProperty, value);
+    }
+
+    /// <summary>
+    /// The padding between the squircle border and the content.
+    /// Unlike Grid.Padding, this only affects content — the background fills the entire container.
+    /// </summary>
+    public new Thickness Padding
+    {
+        get => (Thickness)GetValue(PaddingProperty);
+        set => SetValue(PaddingProperty, value);
     }
 
     /// <summary>
@@ -153,8 +170,17 @@ public class SquircleContainer : Grid
                 container.Children.Remove(oldView);
 
             if (newValue is View newView)
+            {
+                newView.Margin = container.Padding;
                 container.Children.Add(newView);
+            }
         }
+    }
+
+    private static void OnPaddingPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is SquircleContainer container && container.Content is View content)
+            content.Margin = (Thickness)newValue;
     }
 
     private static void OnVisualPropertyChanged(BindableObject bindable, object oldValue, object newValue)
