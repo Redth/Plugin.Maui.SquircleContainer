@@ -12,9 +12,9 @@
                    HorizontalOptions="Center" />
 
             <!-- Basic solid fill -->
-            <Label Text="Solid Fill (CornerRadius=30, Smoothing=0.6)" FontSize="12" />
-            <squircle:SquircleContainer CornerRadius="30"
-                                        CornerSmoothing="0.6"
+            <Label Text="Solid Fill (CornerRadius=50, Smoothing=0.8)" FontSize="12" />
+            <squircle:SquircleContainer CornerRadius="50"
+                                        CornerSmoothing="0.8"
                                         HeightRequest="120"
                                         WidthRequest="280"
                                         HorizontalOptions="Center">
@@ -29,8 +29,8 @@
             </squircle:SquircleContainer>
 
             <!-- Standard rounded for comparison -->
-            <Label Text="Standard Round (Smoothing=0)" FontSize="12" />
-            <squircle:SquircleContainer CornerRadius="30"
+            <Label Text="Standard Round (Smoothing=0, Radius=50)" FontSize="12" />
+            <squircle:SquircleContainer CornerRadius="50"
                                         CornerSmoothing="0"
                                         HeightRequest="120"
                                         WidthRequest="280"
@@ -46,8 +46,8 @@
             </squircle:SquircleContainer>
 
             <!-- Full squircle -->
-            <Label Text="Full Squircle (Smoothing=1.0)" FontSize="12" />
-            <squircle:SquircleContainer CornerRadius="30"
+            <Label Text="Full Squircle (Smoothing=1.0, Radius=50)" FontSize="12" />
+            <squircle:SquircleContainer CornerRadius="50"
                                         CornerSmoothing="1.0"
                                         HeightRequest="120"
                                         WidthRequest="280"
@@ -64,8 +64,8 @@
 
             <!-- Gradient fill -->
             <Label Text="Linear Gradient Fill" FontSize="12" />
-            <squircle:SquircleContainer CornerRadius="40"
-                                        CornerSmoothing="0.6"
+            <squircle:SquircleContainer CornerRadius="50"
+                                        CornerSmoothing="0.8"
                                         HeightRequest="150"
                                         WidthRequest="300"
                                         HorizontalOptions="Center">
