@@ -4,6 +4,12 @@ A .NET MAUI container control with Apple-style **squircle** (continuous-curvatur
 
 Uses only **MAUI Graphics** — no SkiaSharp or other drawing dependencies.
 
+## Screenshots
+
+| Basic Demos | Complex Layouts | Playground |
+|:-:|:-:|:-:|
+| ![Basic squircle demos](images/mainpage.png) | ![Complex layout examples](images/complex-layouts.png) | ![Interactive playground](images/playground.png) |
+
 ## What is a Squircle?
 
 Standard rounded rectangles use circular arcs at corners, producing visible curvature discontinuities where the arc meets the straight edge. Apple's iOS uses **continuous-curvature corners** (superellipse/squircle shape) where curvature transitions smoothly, producing a more organic, visually pleasing shape. This is the same algorithm used by Figma's "corner smoothing" feature.
