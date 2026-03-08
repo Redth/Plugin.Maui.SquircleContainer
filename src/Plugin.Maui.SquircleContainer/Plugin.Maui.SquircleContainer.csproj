@@ -18,6 +18,7 @@
     <!-- NuGet package metadata -->
     <PackageId>Plugin.Maui.SquircleContainer</PackageId>
     <Version>1.0.0</Version>
+    <VersionPrefix Condition="'$(PackageVersion)' != ''">$(PackageVersion)</VersionPrefix>
     <Authors>Redth</Authors>
     <Description>A .NET MAUI container control with Apple-style squircle (continuous-curvature) corners. Drop-in alternative to Border with smooth superellipse corners. Uses only MAUI Graphics — no SkiaSharp dependency.</Description>
     <PackageTags>maui;squircle;superellipse;border;container;corners;dotnet;ios;android;maccatalyst;macos</PackageTags>
