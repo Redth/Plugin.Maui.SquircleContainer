@@ -19,7 +19,7 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Install MAUI workload
-        run: dotnet workload install maui
+        run: dotnet workload install maui macos
 
       - name: Build library
         run: dotnet build src/Plugin.Maui.SquircleContainer/Plugin.Maui.SquircleContainer.csproj -c Release

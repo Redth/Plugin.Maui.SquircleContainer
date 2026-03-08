@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/benchmarks/">
+    <Project Path="benchmarks/Plugin.Maui.SquircleContainer.Benchmarks/Plugin.Maui.SquircleContainer.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Project Path="samples/Plugin.Maui.SquircleContainer.Sample/Plugin.Maui.SquircleContainer.Sample.csproj" />
+  <Project Path="src/Plugin.Maui.SquircleContainer/Plugin.Maui.SquircleContainer.csproj" />
+</Solution>
