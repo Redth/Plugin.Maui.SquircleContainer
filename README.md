@@ -80,6 +80,62 @@ dotnet add package Plugin.Maui.SquircleContainer
 | `0.6` | Apple iOS-style continuous curvature (default) |
 | `1.0` | Full superellipse squircle |
 
+## Benchmarks
+
+Performance comparison of `SquircleContainer` vs `Border` on real devices using [BenchmarkDotNet](https://benchmarkdotnet.org/) (Android) and a manual Stopwatch runner (iOS). All benchmarks use a 300×200 bounds with corner radius 16.
+
+### Overall (End-to-End)
+
+The rendering pipeline (build path/geometry + measure) and full lifecycle (create control + configure + render pipeline) show that **SquircleContainer is faster overall** because its geometry conversion savings outweigh the extra path-building cost:
+
+| Benchmark | Android | iOS | vs Border |
+|---|---|---|---|
+| **SquircleContainer full pipeline** | 80.9 μs | 73.4 μs | **~0.65x (35% faster)** |
+| Border full pipeline (baseline) | 127.2 μs | 111.7 μs | 1.00x |
+| **SquircleContainer full lifecycle** | 216.7 μs | 198.0 μs | **~0.89x (11% faster)** |
+| Border full lifecycle (baseline) | 245.3 μs | 219.3 μs | 1.00x |
+
+### Individual Stages
+
+<details>
+<summary>Path Building (SquirclePathBuilder vs RoundRectangle)</summary>
+
+Squircle math is more complex (cubic Bézier curves) than simple rounded rectangles:
+
+| Method | Android | iOS | vs Border |
+|---|---|---|---|
+| SquirclePathBuilder (0.6 smoothing) | 4.1 μs | 5.3 μs | ~2.7x slower |
+| RoundRectangle (baseline) | 1.6 μs | 1.9 μs | 1.0x |
+
+</details>
+
+<details>
+<summary>Geometry Conversion (PathF→Geometry vs RoundRectangleGeometry)</summary>
+
+Converting a PathF to a clip geometry is significantly faster than creating a RoundRectangleGeometry:
+
+| Method | Android | iOS | vs Border |
+|---|---|---|---|
+| Squircle PathF → Geometry | 67.7 μs | 62.1 μs | **~0.59x (faster)** |
+| RoundRectangleGeometry (baseline) | 115.3 μs | 101.9 μs | 1.0x |
+
+</details>
+
+<details>
+<summary>Layout (Measure + Create)</summary>
+
+Layout performance is nearly identical:
+
+| Method | Android | iOS | vs Border |
+|---|---|---|---|
+| Measure | 163 ns | 160 ns | ~1.0x |
+| Create + configure | 121 μs | 102 μs | ~1.13x |
+
+</details>
+
+> **Devices**: Android API 35 emulator (arm64), iPhone 16 Pro simulator (iOS 18.6).
+> Run benchmarks yourself: `dotnet build benchmarks/ -f net10.0-android -t:Run`
+
 ## Algorithm
 
 Based on the [Figma squircle algorithm](https://www.figma.com/blog/desperately-seeking-squircles/):

@@ -113,6 +113,7 @@ public static class BenchmarkRunner
         typeof(PathBuildingBenchmarks),
         typeof(GeometryConversionBenchmarks),
         typeof(LayoutBenchmarks),
+        typeof(OverallBenchmarks),
     };
 
     #region BenchmarkDotNet formatter
@@ -160,6 +161,7 @@ public static class BenchmarkRunner
         RunPathBuildingBenchmarks(sb);
         RunGeometryConversionBenchmarks(sb);
         RunLayoutBenchmarks(sb);
+        RunOverallBenchmarks(sb);
 
         return sb.ToString();
     }
@@ -287,6 +289,97 @@ public static class BenchmarkRunner
 
         sb.AppendLine($"| Border create+configure (baseline) | {createBorderNs.Mean / 1000:F2} | {createBorderNs.StdDev / 1000:F2} | 1.00 |");
         sb.AppendLine($"| SquircleContainer create+configure | {createSquircleNs.Mean / 1000:F2} | {createSquircleNs.StdDev / 1000:F2} | {createSquircleNs.Mean / createBorderNs.Mean:F2} |");
+        sb.AppendLine();
+    }
+
+    private static void RunOverallBenchmarks(StringBuilder sb)
+    {
+        sb.AppendLine("## Overall (End-to-End)");
+        sb.AppendLine("| Method | CornerRadius | Mean (μs) | StdDev (μs) | Ratio |");
+        sb.AppendLine("| --- | --- | --- | --- | --- |");
+
+        var bounds = new Microsoft.Maui.Graphics.RectF(0, 0, 300, 200);
+
+        foreach (double cr in new[] { 16.0, 32.0 })
+        {
+            // Pre-create controls for pipeline benchmarks (reuses same instance like BDN [GlobalSetup])
+            var squircle = new SquircleContainer
+            {
+                CornerRadius = new Microsoft.Maui.CornerRadius(cr),
+                CornerSmoothing = 0.6,
+                Fill = new Microsoft.Maui.Controls.SolidColorBrush(Microsoft.Maui.Graphics.Colors.Blue),
+                Stroke = new Microsoft.Maui.Controls.SolidColorBrush(Microsoft.Maui.Graphics.Colors.Red),
+                StrokeThickness = 2,
+                Content = new Microsoft.Maui.Controls.Label { Text = "Content" }
+            };
+
+            var border = new Microsoft.Maui.Controls.Border
+            {
+                StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = new Microsoft.Maui.CornerRadius(cr) },
+                Background = new Microsoft.Maui.Controls.SolidColorBrush(Microsoft.Maui.Graphics.Colors.Blue),
+                Stroke = new Microsoft.Maui.Controls.SolidColorBrush(Microsoft.Maui.Graphics.Colors.Red),
+                StrokeThickness = 2,
+                Content = new Microsoft.Maui.Controls.Label { Text = "Content" }
+            };
+
+            // Full pipeline (path + geometry + measure, reusing control)
+            var borderPipelineNs = MeasureNs(() =>
+            {
+                var geo = new Microsoft.Maui.Controls.Shapes.RoundRectangleGeometry(
+                    new Microsoft.Maui.CornerRadius(cr), new Microsoft.Maui.Graphics.Rect(0, 0, 300, 200));
+                var size = border.Measure(300, 200);
+                return (geo, size);
+            });
+
+            var squirclePipelineNs = MeasureNs(() =>
+            {
+                var path = SquirclePathBuilder.Build(bounds, new Microsoft.Maui.CornerRadius(cr), 0.6);
+                var geo = PathGeometryConverter.ToGeometry(path);
+                var size = squircle.Measure(300, 200);
+                return (geo, size);
+            });
+
+            sb.AppendLine($"| Border full pipeline (baseline) | {cr} | {borderPipelineNs.Mean / 1000:F2} | {borderPipelineNs.StdDev / 1000:F2} | 1.00 |");
+            sb.AppendLine($"| SquircleContainer full pipeline | {cr} | {squirclePipelineNs.Mean / 1000:F2} | {squirclePipelineNs.StdDev / 1000:F2} | {squirclePipelineNs.Mean / borderPipelineNs.Mean:F2} |");
+
+            // Full lifecycle (create + configure + path + geometry + measure)
+            var borderLifecycleNs = MeasureNs(() =>
+            {
+                var b = new Microsoft.Maui.Controls.Border
+                {
+                    StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = new Microsoft.Maui.CornerRadius(cr) },
+                    Background = new Microsoft.Maui.Controls.SolidColorBrush(Microsoft.Maui.Graphics.Colors.Blue),
+                    Stroke = new Microsoft.Maui.Controls.SolidColorBrush(Microsoft.Maui.Graphics.Colors.Red),
+                    StrokeThickness = 2,
+                    Content = new Microsoft.Maui.Controls.Label { Text = "Content" }
+                };
+                var geo = new Microsoft.Maui.Controls.Shapes.RoundRectangleGeometry(
+                    new Microsoft.Maui.CornerRadius(cr), new Microsoft.Maui.Graphics.Rect(0, 0, 300, 200));
+                var size = b.Measure(300, 200);
+                return (b, geo, size);
+            });
+
+            var squircleLifecycleNs = MeasureNs(() =>
+            {
+                var sc = new SquircleContainer
+                {
+                    CornerRadius = new Microsoft.Maui.CornerRadius(cr),
+                    CornerSmoothing = 0.6,
+                    Fill = new Microsoft.Maui.Controls.SolidColorBrush(Microsoft.Maui.Graphics.Colors.Blue),
+                    Stroke = new Microsoft.Maui.Controls.SolidColorBrush(Microsoft.Maui.Graphics.Colors.Red),
+                    StrokeThickness = 2,
+                    Content = new Microsoft.Maui.Controls.Label { Text = "Content" }
+                };
+                var path = SquirclePathBuilder.Build(bounds, new Microsoft.Maui.CornerRadius(cr), 0.6);
+                var geo = PathGeometryConverter.ToGeometry(path);
+                var size = sc.Measure(300, 200);
+                return (sc, geo, size);
+            });
+
+            sb.AppendLine($"| Border full lifecycle (baseline) | {cr} | {borderLifecycleNs.Mean / 1000:F2} | {borderLifecycleNs.StdDev / 1000:F2} | 1.00 |");
+            sb.AppendLine($"| SquircleContainer full lifecycle | {cr} | {squircleLifecycleNs.Mean / 1000:F2} | {squircleLifecycleNs.StdDev / 1000:F2} | {squircleLifecycleNs.Mean / borderLifecycleNs.Mean:F2} |");
+        }
+
         sb.AppendLine();
     }
 
